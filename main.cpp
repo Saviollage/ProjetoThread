@@ -68,13 +68,13 @@ int main(int argc, char *argv[])
     int timeS1, timeS2, timeS3, bufferSize;
     /*  Define as condições iniciais dos robôs  */
     dru.setId(0);
-    dru.setLocation(rand() % 400, rand() % 300);
+    dru.setLocation(0, 0);
     drudru.setId(1);
-    drudru.setLocation(rand() % 400, rand() % 300);
+    drudru.setLocation(200, 150);
     edru.setId(2);
-    edru.setLocation(rand() % 400, rand() % 300);
+    edru.setLocation(400, 300);
 
-    /*
+    
     cout << "Entre com o tempo em MS para a fonte 1 (1000 a 4000): ";
     cin >> timeS1;
     cout << "Entre com o tempo em MS para a fonte 2 (1000 a 4000): ";
@@ -86,12 +86,12 @@ int main(int argc, char *argv[])
     cin >> bufferSize;
 
     /*  Define as condições das fontes    */
-    source1->setTime(1000);
-    source2->setTime(2000);
-    source3->setTime(4000);
+    source1->setTime(timeS1);
+    source2->setTime(timeS2);
+    source3->setTime(timeS3);
 
     /*  Define a condição de tamanho do buffer  */
-    buffer->setBufferSize(100);
+    buffer->setBufferSize(bufferSize);
 
     pthread_t sourceT1, sourceT2, sourceT3;
 
