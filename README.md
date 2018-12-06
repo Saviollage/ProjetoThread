@@ -2,7 +2,7 @@
 
 Projeto para disciplina de Sistemas Operacionais, utilizando threads e semáforos
 
-![alt text](https://raw.githubusercontent.com/Saviollage/ProjetoThread/blob/master/Projeto.jpeg)
+![alt text](https://github.com/Saviollage/ProjetoThread/blob/master/Projeto.jpeg?raw=true)
 
 
 
