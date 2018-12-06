@@ -45,7 +45,7 @@ Robot Source::captureRobotPosition(Robot robot) /*  Captura a posição de cada 
 
         posX = robot.getX() + (pow(-1, rand() % 2)) * (rand() % 10); /*  Pega a posição X podendo somar ou subtrair a ela por um valor de 0 a 10   */
 
-    } while (posX < -200 || posX > 200);
+    } while (posX < 0 || posX > 400);
 
     do
     {
@@ -53,7 +53,7 @@ Robot Source::captureRobotPosition(Robot robot) /*  Captura a posição de cada 
 
         posY = robot.getY() + (pow(-1, rand() % 2)) * (rand() % 10); /*  Pega a posição Y podendo somar ou subtrair a ela por um valor de 0 a 10   */
 
-    } while (posY < -150 || posY > 150);
+    } while (posY < 0 || posY > 300);
 
     robot.setLocation(posX, posY); /*  Aloca os valores encontrados para o robo auxiliar   */
 

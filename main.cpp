@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <unistd.h>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 using namespace std;
 
 Robot dru; /*  Declaração dos robôs  */
@@ -67,30 +68,30 @@ int main(int argc, char *argv[])
     int timeS1, timeS2, timeS3, bufferSize;
     /*  Define as condições iniciais dos robôs  */
     dru.setId(0);
-    dru.setLocation(rand() % 50, rand() % 50);
+    dru.setLocation(rand() % 400, rand() % 300);
     drudru.setId(1);
-    drudru.setLocation(rand() % 50, rand() % 50);
+    drudru.setLocation(rand() % 400, rand() % 300);
     edru.setId(2);
-    edru.setLocation(rand() % 50, rand() % 50);
+    edru.setLocation(rand() % 400, rand() % 300);
 
-
+    /*
     cout << "Entre com o tempo em MS para a fonte 1 (1000 a 4000): ";
     cin >> timeS1;
-     cout << "Entre com o tempo em MS para a fonte 2 (1000 a 4000): ";
+    cout << "Entre com o tempo em MS para a fonte 2 (1000 a 4000): ";
     cin >> timeS2;
-     cout << "Entre com o tempo em MS para a fonte 3 (1000 a 4000): ";
+    cout << "Entre com o tempo em MS para a fonte 3 (1000 a 4000): ";
     cin >> timeS3;
 
-     cout << "Entre com o tamanho do buffer: ";
+    cout << "Entre com o tamanho do buffer: ";
     cin >> bufferSize;
 
     /*  Define as condições das fontes    */
-    source1->setTime(timeS1);
-    source2->setTime(timeS2);
-    source3->setTime(timeS3);
+    source1->setTime(1000);
+    source2->setTime(2000);
+    source3->setTime(4000);
 
     /*  Define a condição de tamanho do buffer  */
-    buffer->setBufferSize(bufferSize);
+    buffer->setBufferSize(100);
 
     pthread_t sourceT1, sourceT2, sourceT3;
 
@@ -103,7 +104,6 @@ int main(int argc, char *argv[])
     {
         cout << "Erro na thread para source 1" << endl;
     }
-   
 
     int SourceRet2 = pthread_create(&sourceT2, NULL, Source1, (void *)sourceM2);
     if (SourceRet2)
@@ -111,18 +111,32 @@ int main(int argc, char *argv[])
         cout << "Erro na thread para source 2" << endl;
     }
 
-  
-
     int SourceRet3 = pthread_create(&sourceT3, NULL, Source1, (void *)sourceM3);
     if (SourceRet3)
     {
         cout << "Erro na thread para source 3" << endl;
     }
 
-    while (1)
+    /* PARA PARTE GRÁFICA */
+
+    sf::RenderWindow window(sf::VideoMode(500, 400), "Posições Dru, DruDru e Edru");
+
+    sf::CircleShape circleRed(50);   //DRU
+    sf::CircleShape circleGreen(50); //DRUDRU
+    sf::CircleShape circleBlue(50);  //EDRU
+
+    circleRed.setFillColor(sf::Color(255, 0, 0));
+    circleGreen.setFillColor(sf::Color(0, 255, 0));
+    circleBlue.setFillColor(sf::Color(0, 0, 255));
+
+    circleRed.setPosition(dru.getX(), dru.getY());
+    circleGreen.setPosition(drudru.getX(), drudru.getY());
+    circleBlue.setPosition(edru.getX(), edru.getY());
+
+    while (window.isOpen())
     {
         system("clear");
-        /*  Aloca a posição lida do buffer ja processada em cada robô e mostra a informação*/
+
         dru = buffer->setRobotRealPosition(dru.getId());
         drudru = buffer->setRobotRealPosition(drudru.getId());
         edru = buffer->setRobotRealPosition(edru.getId());
@@ -132,9 +146,30 @@ int main(int argc, char *argv[])
         cout << "\nEDRU\t\t id: " << edru.getId() << "\t X: " << edru.getX() << "\t Y: " << edru.getY();
         cout << "\nTamanho do buffer: " << buffer->getBufferSize();
 
-        
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                // Someone closed the window- bye
+                window.close();
+        }
+        // End user input detection
+
+        // Clear everything from the last run of the while loop
+        window.clear();
+
+        circleRed.setPosition(dru.getX(), dru.getY());
+        circleGreen.setPosition(drudru.getX(), drudru.getY());
+        circleBlue.setPosition(edru.getX(), edru.getY());
+
+        window.draw(circleRed);
+        window.draw(circleGreen);
+        window.draw(circleBlue);
+
+        // Show everything on the screen
+        window.display();
         usleep(50000);
-    }
+    } // This is the end of the "while" loop
 
     return 0;
 }
