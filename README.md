@@ -15,6 +15,7 @@ Projeto para disciplina de Sistemas Operacionais, utilizando threads e semáforo
 
 ```
 Linux
+SFML
 ```
 
 
