@@ -22,10 +22,11 @@ Linux
 Abra o terminal e digite o seguinte comando para compilar
 
 ```
-g++ *.cpp -lpthread
+g++ -c *.cpp 
+g++ *.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system -lpthread
 ```
 Para executar, digite:
 
 ```
-./a.out
+./sfml-app
 ```
