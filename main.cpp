@@ -131,6 +131,8 @@ int main(int argc, char *argv[])
         cout << "\nDRUDRUDRU\t id: " << drudru.getId() << "\t X: " << drudru.getX() << "\t Y: " << drudru.getY();
         cout << "\nEDRU\t\t id: " << edru.getId() << "\t X: " << edru.getX() << "\t Y: " << edru.getY();
         cout << "\nTamanho do buffer: " << buffer->getBufferSize();
+
+        
         usleep(50000);
     }
 
