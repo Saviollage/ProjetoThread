@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
 {
     srand(time(0));
 
+    int timeS1, timeS2, timeS3, bufferSize;
     /*  Define as condições iniciais dos robôs  */
     dru.setId(0);
     dru.setLocation(rand() % 50, rand() % 50);
@@ -72,13 +73,24 @@ int main(int argc, char *argv[])
     edru.setId(2);
     edru.setLocation(rand() % 50, rand() % 50);
 
+
+    cout << "Entre com o tempo em MS para a fonte 1 (1000 a 4000): ";
+    cin >> timeS1;
+     cout << "Entre com o tempo em MS para a fonte 2 (1000 a 4000): ";
+    cin >> timeS2;
+     cout << "Entre com o tempo em MS para a fonte 3 (1000 a 4000): ";
+    cin >> timeS3;
+
+     cout << "Entre com o tamanho do buffer: ";
+    cin >> bufferSize;
+
     /*  Define as condições das fontes    */
-    source1->setTime(1000);
-    source2->setTime(2000);
-    source3->setTime(4000);
+    source1->setTime(timeS1);
+    source2->setTime(timeS2);
+    source3->setTime(timeS3);
 
     /*  Define a condição de tamanho do buffer  */
-    buffer->setBufferSize(100);
+    buffer->setBufferSize(bufferSize);
 
     pthread_t sourceT1, sourceT2, sourceT3;
 
@@ -91,7 +103,7 @@ int main(int argc, char *argv[])
     {
         cout << "Erro na thread para source 1" << endl;
     }
-    usleep(5000);
+   
 
     int SourceRet2 = pthread_create(&sourceT2, NULL, Source1, (void *)sourceM2);
     if (SourceRet2)
@@ -99,7 +111,7 @@ int main(int argc, char *argv[])
         cout << "Erro na thread para source 2" << endl;
     }
 
-    usleep(5000);
+  
 
     int SourceRet3 = pthread_create(&sourceT3, NULL, Source1, (void *)sourceM3);
     if (SourceRet3)
@@ -119,7 +131,7 @@ int main(int argc, char *argv[])
         cout << "\nDRUDRUDRU\t id: " << drudru.getId() << "\t X: " << drudru.getX() << "\t Y: " << drudru.getY();
         cout << "\nEDRU\t\t id: " << edru.getId() << "\t X: " << edru.getX() << "\t Y: " << edru.getY();
         cout << "\nTamanho do buffer: " << buffer->getBufferSize();
-        usleep(4000);
+        usleep(50000);
     }
 
     return 0;
