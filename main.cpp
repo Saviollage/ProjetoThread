@@ -14,8 +14,8 @@ Robot drudru;
 Robot edru;
 
 Source *source1 = new Source(1); /*  Declaração das fontes iniciando com suas respectivas ids*/
-Source *source2 = new Source(1);
-Source *source3 = new Source(1);
+Source *source2 = new Source(2);
+Source *source3 = new Source(3);
 
 Buffer *buffer = new Buffer(); /*  Declaração do buffer    */
 
@@ -105,13 +105,13 @@ int main(int argc, char *argv[])
         cout << "Erro na thread para source 1" << endl;
     }
 
-    int SourceRet2 = pthread_create(&sourceT2, NULL, Source1, (void *)sourceM2);
+    int SourceRet2 = pthread_create(&sourceT2, NULL, Source2, (void *)sourceM2);
     if (SourceRet2)
     {
         cout << "Erro na thread para source 2" << endl;
     }
 
-    int SourceRet3 = pthread_create(&sourceT3, NULL, Source1, (void *)sourceM3);
+    int SourceRet3 = pthread_create(&sourceT3, NULL, Source3, (void *)sourceM3);
     if (SourceRet3)
     {
         cout << "Erro na thread para source 3" << endl;
